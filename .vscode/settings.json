@@ -1,0 +1,13 @@
+{
+  "foam.openDailyNote.directory": "journal",
+  "foam.openDailyNote.filenameFormat": "'daily-note'-yyyy-mm-dd",
+  "foam.openDailyNote.fileExtension": "mdx",
+  "foam.openDailyNote.titleFormat": "'Journal Entry, ' dddd, mmmm d",
+  "auto-run-command.rules": [
+    {
+      "condition": "hasFile: .vscode/foam.json",
+      "command": "foam-vscode.open-daily-note",
+      "message": "Have a nice day!"
+    }
+  ],
+}
