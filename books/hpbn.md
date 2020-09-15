@@ -31,6 +31,24 @@
 - New connections are expensive, which is why we want to re-use connections as much as possible.
 - **TCP Fast open** - mechanism that aims to eliminate latency penalty on new connections by allowing data transfer within the SYN packet.
 - Due to congestion collapse mechanisms were put in place to govern rate of data sent in both directions.
-  - Flow control - **I'm up to flow control**
+  - Flow control
   - Congestion control
   - Congestion avoidance
+
+#### Flow Control
+- Mechanism to prevent the sender from overwhelming the receiver with data it may not be able to process.
+- A receive window (rwnd) on each side of the TCP connection communicates size of the available buffer.
+- Doesn't solve the problem of congestion collapse by itself.
+
+#### Congestion control
+- Slow start
+  - Flow control solves a sender ovewhelming the receiver. But no mechanism to prevent each side overwhelming the underlying network.
+  - Congestion window size (cwnd) - Sender-side limit on the amount of data the sender can have in flight before receiving an acknowledgment (ACK) from the client.
+  - Private variable
+  - Data is min(rwnd, cwnd)
+  - Slow start comes in because we want to grow the window size over time. I.e. we start slow and grow as packets are ack'd.
+  - The congestion window is doubled every round trip. Ensuring we do not use the full capacity of the link immediately.
+  - The fact that the client and server can transmit Mbps+ data rates has no effect when a new connection is established.
+  - Limits the available bandwidth which has an adverse affect on performance of small transfers.
+  - **Up to slow start restart**
+
