@@ -50,5 +50,30 @@
   - The congestion window is doubled every round trip. Ensuring we do not use the full capacity of the link immediately.
   - The fact that the client and server can transmit Mbps+ data rates has no effect when a new connection is established.
   - Limits the available bandwidth which has an adverse affect on performance of small transfers.
-  - **Up to slow start restart**
+  - Restarts aren't great - if possible re-use an existing TCP connection.
+  - Increasing window size from 10 segments is an easy way  to improve performance.
 
+#### Congestion avoidance
+- TCP uses packet loss as feedback,
+- Congestion avoidance takes over if a packet is lost.
+- If a packet is lost, we will adjust our window to prevent more packets from being lost.
+- Proportional Rate Reduction (PRR) is the algorithm used for congestion avoidance.
+
+#### Bandwidth Delay Product
+- Product of data link’s capacity and its end-to-end delay. The result is the maximum amount of unacknowledged data that can be in flight at any point in time.
+- Window sizes should be just big enough, such that either side can continue sending data until an ACK arrives back from the client for an earlier packet.
+- No gaps, maximum throughput.
+- The optimal window size depends on round trip time.
+
+#### Head of Line blocking.
+- Happens because TCP sends packets in order. If one packet is lost all subsequent packets must be held in the receivers TCP buffer until the lost packet is retransmitted and arrives at the receiver.
+- This causes something commonly known as jitter - unpredictable latency variation in the packet arrival times.
+- Applications that can deal with out of order deliver, or are jitter sensitive should use something like UDP. WebRTC uses UDP.
+
+- The core principles of TCP
+  - TCP three-way handshake introduces a full roundtrip of latency.
+  - TCP slow-start is applied to every new connection.
+  - TCP flow and congestion control regulate throughput of all connections.
+  - TCP throughput is regulated by current congestion window size.
+
+## Chapter 3
